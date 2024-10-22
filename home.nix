@@ -82,4 +82,13 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    oh-my-zsh = {
+      enable = true;
+      theme = "awesomepanda";
+    };
+  };
 }

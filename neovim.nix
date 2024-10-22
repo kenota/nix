@@ -1,4 +1,5 @@
-{inputs,  ...}: {
+
+{inputs, pkgs, ...}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
@@ -9,7 +10,10 @@
 
     plugins = {
       bufferline.enable = true;
-      lualine.enable = true;
+      lualine = {
+	enable = true;
+	theme = "solarized_light";
+      };
 
       lsp = {
         enable = true;
@@ -17,22 +21,32 @@
         servers = {
           pyright.enable = true;
 	  nixd.enable = true;
+	  clojure_lsp.enable = true;
         };
       };
       
-      cmp = {
-	autoEnableSources = true;
-	settings.sources = [
-	  { name = "nvim_lsp"; }
-	  { name = "path"; }
-	  { name = "buffer"; }
-	];
-      };
-    };
+#      cmp = {
+#	autoEnableSources = true;
+#	settings.sources = [
+#	  { name = "nvim_lsp"; }
+#	  { name = "path"; }
+#	  { name = "buffer"; }
+#	];
+#     };
+      coq-nvim = {
+	enable = true;
+	installArtifacts = true;
 
-    colorschemes.gruvbox = {
-      enable = true;
+	autoStart = "shut-up";
+      };
+
+      comment.enable = true;
     };
+    
+    extraPlugins = with pkgs.vimPlugins; [
+      solarized-nvim
+    ];
+
     
     viAlias = true;
     vimAlias = true;
@@ -43,6 +57,16 @@
       relativenumber = true;
       shiftwidth = 2;
     };
+
+    luaLoader.enable = true;
+
+    extraConfigLua = ''
+    -- configure theme
+    require('solarized').set()
+    
+    vim.o.mapleader = ' '
+    vim.o.maplocalleader = ' '
+    '';
 
   };
 
