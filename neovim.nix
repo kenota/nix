@@ -40,6 +40,17 @@
 	autoStart = "shut-up";
       };
 
+      parinfer-rust = {
+	enable = true;
+      };
+      
+      conjure = {
+        enable = true;
+      };
+      treesitter.enable = true;
+      telescope.enable = true;
+      rainbow-delimiters.enable = true;
+
       comment.enable = true;
     };
     
@@ -56,9 +67,31 @@
       number = true;
       relativenumber = true;
       shiftwidth = 2;
+      expandtab = true;
+      tabstop = 2;
+      clipboard = "unnamedplus";
+
     };
 
     luaLoader.enable = true;
+
+#    maps = {
+#      normal = {
+#	"<leader>ff" = {
+#	  action = "vim.lsp.buf.format";
+#	  desc = "Format buffer";
+#};
+#	"<leader>ca" = {
+#	  action = "vim.lsp.buf.code_action";
+#	  desc = "Code actions";
+#	};
+#      };
+#    };
+
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+    };
 
     extraConfigLua = ''
     -- configure theme
@@ -66,6 +99,8 @@
     
     vim.o.mapleader = ' '
     vim.o.maplocalleader = ' '
+
+
     '';
 
   };

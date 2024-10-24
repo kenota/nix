@@ -42,6 +42,11 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    pkgs.clojure
+    pkgs.babashka
+    pkgs.awscli2
+    pkgs.jq
+
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -88,7 +93,12 @@
     enableCompletion = true;
     oh-my-zsh = {
       enable = true;
-      theme = "awesomepanda";
+      theme = "alanpeabody";
     };
+  };
+
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
   };
 }
