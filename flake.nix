@@ -30,12 +30,19 @@
         specialArgs = { inherit inputs hostConfig; };
       };
 
-
   in
   {
     darwinConfigurations = {
       "marcus" = mkDarwinSystem {
         hostConfig = import ./hosts/marcus;
+      };
+    };
+    nixosConfigurations = {
+      "toddler" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/toddler/configuration.nix
+        ];
       };
     };
   };
