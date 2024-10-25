@@ -48,14 +48,21 @@
         name = "kenota";
         home = "/Users/kenota";
       };
+
+      homebrew = {
+        enable = true;
+        casks = [
+          "nikitabobko/tap/aerospace"
+        ];
+      }; 
     };
     work = { pkgs, config, ...}: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ pkgs.vim
-	  pkgs.karabiner-elements
-	  pkgs.mkalias
+	        pkgs.karabiner-elements
+	        pkgs.mkalias
         ];
 
       system.activationScripts.applications.text = let

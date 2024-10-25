@@ -6,13 +6,14 @@
   
   programs.nixvim = {
     enable = true;
+
     defaultEditor = true;
 
     plugins = {
       bufferline.enable = true;
       lualine = {
-	enable = true;
-	theme = "solarized_light";
+				enable = true;
+				theme = "solarized_light";
       };
 
       lsp = {
@@ -20,33 +21,37 @@
 
         servers = {
           pyright.enable = true;
-	  nixd.enable = true;
-	  clojure_lsp.enable = true;
+					nixd.enable = true;
+					clojure_lsp.enable = true;
         };
       };
       
-#      cmp = {
-#	autoEnableSources = true;
-#	settings.sources = [
-#	  { name = "nvim_lsp"; }
-#	  { name = "path"; }
-#	  { name = "buffer"; }
-#	];
-#     };
-      coq-nvim = {
-	enable = true;
-	installArtifacts = true;
+      cmp = {
+				autoEnableSources = true;
+				settings.sources = [
+					{ name = "nvim_lsp"; }
+					{ name = "path"; }
+					{ name = "buffer"; }
+				];
+			};
 
-	autoStart = "shut-up";
+      coq-nvim = {
+				enable = true;
+				installArtifacts = true;
+				settings = {
+
+					auto_start = "shut-up";
+				};
       };
 
       parinfer-rust = {
-	enable = true;
+				enable = true;
       };
       
       conjure = {
         enable = true;
       };
+
       treesitter.enable = true;
       telescope.enable = true;
       rainbow-delimiters.enable = true;
@@ -63,15 +68,20 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    options = {
+    opts = {
       number = true;
       relativenumber = true;
       shiftwidth = 2;
       expandtab = true;
       tabstop = 2;
-      clipboard = "unnamedplus";
+#      clipboard.register = "unnamedplus";
 
     };
+		
+		globals = {
+		  mapleader = " ";
+			localmapleader = " ";
+		};
 
     luaLoader.enable = true;
 
@@ -88,17 +98,17 @@
 #      };
 #    };
 
-    globals = {
-      mapleader = " ";
-      maplocalleader = " ";
-    };
 
     extraConfigLua = ''
     -- configure theme
     require('solarized').set()
-    
-    vim.o.mapleader = ' '
-    vim.o.maplocalleader = ' '
+
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+    vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+    vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+    vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
 
 
     '';
