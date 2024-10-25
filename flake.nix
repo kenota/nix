@@ -29,6 +29,22 @@
         ];
         specialArgs = { inherit inputs hostConfig; };
       };
+    mkNixosSystem = { hostConfig }:
+      nixpkgs.lib.nixosSystem {
+        inherit (hostConfig) system;
+	modules = [
+	  ./hosts/toddler/configuration.nix
+	  home-manager.nixosModules.home-manager
+	  {
+	    home-manager.useGlobalPkgs = true;
+	    home-manager.useUserPackages = true;
+	    home-manager.users.${hostConfig.username} = import ./home.nix;
+	    home-manager.extraSpecialArgs = { inherit inputs hostConfig; };
+	  }
+	];
+
+	specialArgs = { inherit inputs hostConfig; };
+      };
 
   in
   {
@@ -38,11 +54,8 @@
       };
     };
     nixosConfigurations = {
-      "toddler" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/toddler/configuration.nix
-        ];
+      "toddler" = mkNixosSystem {
+        hostConfig = import ./hosts/toddler;
       };
     };
   };
