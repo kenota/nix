@@ -23,6 +23,7 @@
     rclone
     aria2
     speedtest-cli
+    yt-dlp
 
   ];
 
@@ -72,5 +73,13 @@
     lfs.enable = true;
     userEmail = "unplaced@gmail.com";
     userName = "kenota";
+  };
+
+  programs = {
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 }
