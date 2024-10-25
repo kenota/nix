@@ -21,6 +21,8 @@
 		tmux
 		ripgrep
     rclone
+    aria2
+    speedtest-cli
 
   ];
 

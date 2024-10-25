@@ -52,12 +52,10 @@
   # LIST PACKAGES INSTALLED IN SYSTEM PROFILE. TO SEARCH, RUN:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget
      tailscale
-     #jellyfin
-     #jellyfin-web
-     #jellyfin-ffmpeg
+     jellyfin
+     jellyfin-web
+     jellyfin-ffmpeg
   ];
   
 
@@ -81,6 +79,15 @@
       enable = true;
       openFirewall = true;
   };
+
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
+  
+  systemd.tmpfiles.rules = [
+    "d /mnt/media 2770 jellyfin jellyfin"
+  ];
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
