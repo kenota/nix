@@ -6,8 +6,8 @@
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  # home.username = "kenota";
-  # home.homeDirectory = "/Users/kenota";
+  home.username = "kenota";
+  home.homeDirectory = "/home/kenota";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -87,5 +87,7 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
+    userEmail = "unplaced@gmail.com";
+    userName = "kenota";
   };
 }
