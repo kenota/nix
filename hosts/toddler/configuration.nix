@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -15,6 +15,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "toddler"; # Define your hostname.
+  
+  # Align the angelbrackets path with the pinned version from flake
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -56,7 +59,9 @@
      jellyfin
      jellyfin-web
      jellyfin-ffmpeg
+    git
   ];
+
   
 
   # Some programs need SUID wrappers, can be configured further or are

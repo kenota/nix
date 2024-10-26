@@ -1,16 +1,19 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./neovim.nix
   ];
 
-  home.stateVersion = "24.05"; 
+  home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
-	   	"JetBrainsMono"
+        "JetBrainsMono"
       ];
     })
 
@@ -18,13 +21,13 @@
     babashka
     awscli2
     jq
-		tmux
-		ripgrep
+    tmux
+    ripgrep
     rclone
     aria2
     speedtest-cli
     yt-dlp
-
+    alejandra
   ];
 
   home.file = {
@@ -32,7 +35,6 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
   };
 
   # Home Manager can also manage your environment variables through

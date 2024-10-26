@@ -11,9 +11,15 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, home-manager, nixvim, nixpkgs, ... } @inputs:
-  let
-    mkDarwinSystem = { hostConfig }:
+  outputs = {
+    self,
+    darwin,
+    home-manager,
+    nixvim,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    mkDarwinSystem = {hostConfig}:
       darwin.lib.darwinSystem {
         inherit (hostConfig) system;
         modules = [
@@ -24,12 +30,12 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${hostConfig.username} = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {inherit inputs;};
           }
         ];
-        specialArgs = { inherit inputs hostConfig; };
+        specialArgs = {inherit inputs hostConfig;};
       };
-    mkNixosSystem = { hostConfig }:
+    mkNixosSystem = {hostConfig}:
       nixpkgs.lib.nixosSystem {
         inherit (hostConfig) system;
         modules = [
@@ -39,15 +45,13 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${hostConfig.username} = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs hostConfig; };
+            home-manager.extraSpecialArgs = {inherit inputs hostConfig;};
           }
         ];
 
-        specialArgs = { inherit inputs hostConfig; };
+        specialArgs = {inherit inputs hostConfig;};
       };
-
-  in
-  {
+  in {
     darwinConfigurations = {
       "marcus" = mkDarwinSystem {
         hostConfig = import ./hosts/marcus;
